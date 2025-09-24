@@ -1,0 +1,10 @@
+Django>=4.2
+djangorestframework
+djangorestframework-simplejwt
+psycopg2-binary
+django-filter
+drf-yasg
+python-dotenv
+gunicorn
+whitenoise
+requests
