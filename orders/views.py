@@ -141,9 +141,9 @@ class CheckoutViewSet(viewsets.GenericViewSet):
             order.save()
             # After order is created
             send_email(
-                subject=f"Order #{Order.id} Created",
-                message=f"Hi {Order.user.username}, your order has been created. Total: {order.total_amount} {order.currency}",
-                recipient=[Order.user.email]
+                subject=f"Order #{order.id} Created",
+                message=f"Hi {order.user.username}, your order has been created. Total: {order.total_amount} {order.currency}",
+                recipient=[order.user.email]
             )
 
         return Response(
