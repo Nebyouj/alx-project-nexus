@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from .models import Order, OrderItem
 from .serializers import OrderSerializer, OrderItemSerializer
 from products.models import Product
+from accounts.tasks import send_email
 
 CHAPA_SECRET_KEY = os.getenv("CHAPA_SECRET_KEY")
 CHAPA_BASE_URL = "https://api.chapa.co/v1"
@@ -17,8 +18,8 @@ class CheckoutViewSet(viewsets.GenericViewSet):
     """
     Creates an Order, validates stock, and returns a Chapa checkout URL.
     """
-    # permission_classes = [permissions.AllowAny]
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.AllowAny]
+    # permission_classes = [permissions.IsAuthenticated]
     serializer_class = OrderSerializer
 
     @action(detail=False, methods=["post"], url_path="checkout")
@@ -138,6 +139,12 @@ class CheckoutViewSet(viewsets.GenericViewSet):
             # Save reference for later verification
             order.payment_reference = tx_ref
             order.save()
+            # After order is created
+            send_email(
+                subject=f"Order #{Order.id} Created",
+                message=f"Hi {Order.user.username}, your order has been created. Total: {order.total_amount} {order.currency}",
+                recipient=[Order.user.email]
+            )
 
         return Response(
             {
@@ -187,12 +194,12 @@ def chapa_webhook(request):
     status_ = data.get("status")
 
     if not tx_ref:
-        return Response(status=400)
+        return Response({"message": "tx_ref is required."}, status=400)
 
     try:
         order = Order.objects.get(payment_reference=tx_ref)
     except Order.DoesNotExist:
-        return Response(status=404)
+        return Response({"message": "Order not found."}, status=404)
 
     if status_ == "success":
         with transaction.atomic():
@@ -203,8 +210,27 @@ def chapa_webhook(request):
                     product = item.product
                     product.stock -= item.quantity
                     product.save()
+                # After payment success
+                send_email(
+                    subject=f"Order #{order.id} Paid",
+                    message=f"Hi {order.user.username}, your payment was successful. Thank you!",
+                    recipient=[order.user.email]
+                )
+        return Response({"message": f"Order {order.id} marked as PAID."}, status=200)
     elif status_ == "failed":
         order.status = Order.Status.FAILED
         order.save()
+        # After payment failure
+        send_email(
+            subject=f"Order #{order.id} Payment Failed",
+            message=f"Hi {order.user.username}, your payment failed. Please try again.",
+            recipient=[order.user.email]
+        )
+        return Response({"message": f"Order {order.id} marked as FAILED."}, status=200)
+    else:
+        return Response({"message": f"Unknown status '{status_}'."}, status=400)
 
-    return HttpResponse(status=200)
+
+
+
+
