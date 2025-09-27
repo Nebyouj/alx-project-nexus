@@ -186,9 +186,9 @@ EMAIL_HOST_PASSWORD = os.getenv("SENDGRID_API_KEY")          # your SendGrid API
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "noreply@yourdomain.com")
 
 
-# CELERY_BROKER_URL = 'redis://localhost:6379/0'
-
 CELERY_BROKER_URL = "memory://"
+
+# CELERY_BROKER_URL = 'redis://localhost:6379/0'
 
 # CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL")
 # CELERY_RESULT_BACKEND = os.environ.get("CELERY_RESULT_BACKEND")
@@ -211,5 +211,5 @@ CELERY_BROKER_URL = "memory://"
 
 # EMAIL_BACKEND = "sendgrid_backend.SendgridBackend"
 # SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY")
-DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "noreply@yourdomain.com")
+# DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "noreply@yourdomain.com")
 
