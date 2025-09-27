@@ -182,7 +182,7 @@ CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL")
 CELERY_RESULT_BACKEND = os.environ.get("CELERY_RESULT_BACKEND")
 
 ssl_options = {
-    "ssl_cert_reqs": ssl.CERT_REQUIRED,  
+    "ssl_cert_reqs": ssl.CERT_NONE,  
     "ssl_ca_certs": os.environ.get("REDIS_SSL_CA_CERTS", "/etc/ssl/certs/ca-certificates.crt"),
 }
 
