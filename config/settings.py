@@ -166,7 +166,7 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
 }
 
-# EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 # EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 # EMAIL_HOST = os.getenv("EMAIL_HOST", "smtp.gmail.com")
 # EMAIL_PORT = int(os.getenv("EMAIL_PORT", 465))
@@ -176,14 +176,14 @@ SIMPLE_JWT = {
 # EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 # DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "noreply@projectnexus.com")
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = os.getenv("SENDGRID_HOST", "smtp.sendgrid.net")
-EMAIL_PORT = int(os.getenv("SENDGRID_PORT", 587))
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
-EMAIL_HOST_USER = os.getenv("SENDGRID_USERNAME", "apikey")  # literally "apikey"
-EMAIL_HOST_PASSWORD = os.getenv("SENDGRID_API_KEY")          # your SendGrid API key
-DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "noreply@yourdomain.com")
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+# EMAIL_HOST = os.getenv("SENDGRID_HOST", "smtp.sendgrid.net")
+# EMAIL_PORT = int(os.getenv("SENDGRID_PORT", 587))
+# EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = False
+# EMAIL_HOST_USER = os.getenv("SENDGRID_USERNAME", "apikey")  # literally "apikey"
+# EMAIL_HOST_PASSWORD = os.getenv("SENDGRID_API_KEY")          # your SendGrid API key
+# DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "noreply@yourdomain.com")
 
 
 CELERY_BROKER_URL = "memory://"
