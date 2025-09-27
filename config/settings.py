@@ -181,8 +181,10 @@ DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "noreply@projectnexus.com")
 CELERY_BROKER_URL = os.environ.get("CELERY_BROKER_URL")
 CELERY_RESULT_BACKEND = os.environ.get("CELERY_RESULT_BACKEND")
 
-CELERY_BROKER_USE_SSL = {
-    "ssl_cert_reqs": ssl.CERT_NONE,
+ssl_options = {
+    "ssl_cert_reqs": ssl.CERT_REQUIRED,  
     "ssl_ca_certs": os.environ.get("REDIS_SSL_CA_CERTS", "/etc/ssl/certs/ca-certificates.crt"),
 }
 
+CELERY_BROKER_TRANSPORT_OPTIONS = ssl_options
+CELERY_RESULT_BACKEND_TRANSPORT_OPTIONS = ssl_options
