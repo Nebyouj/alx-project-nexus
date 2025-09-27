@@ -142,7 +142,7 @@ class CheckoutViewSet(viewsets.GenericViewSet):
             # After order is created
             send_email(
                 subject=f"Order #{order.id} Created",
-                message=f"Hi {order.user.username}, your order has been created. Total: {order.total_amount} {order.currency}",
+                message=f"Hi {order.user.username}, your order has been created. Total: {order.total_amount} {order.currency}. \n Your transaction_payment_reference is {order.payment_reference}",
                 recipient=[order.user.email]
             )
 
