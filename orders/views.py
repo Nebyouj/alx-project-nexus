@@ -140,7 +140,7 @@ class CheckoutViewSet(viewsets.GenericViewSet):
             order.payment_reference = tx_ref
             order.save()
             # After order is created
-            send_email(
+            send_email.delay(
                 subject=f"Order #{order.id} Created",
                 message=f"Hi {order.user.username}, your order has been created. Total: {order.total_amount} {order.currency}",
                 recipient=[order.user.email]
@@ -211,7 +211,7 @@ def chapa_webhook(request):
                     product.stock -= item.quantity
                     product.save()
                 # After payment success
-                send_email(
+                send_email.delay(
                     subject=f"Order #{order.id} Paid",
                     message=f"Hi {order.user.username}, your payment was successful. Thank you!",
                     recipient=[order.user.email]
@@ -221,7 +221,7 @@ def chapa_webhook(request):
         order.status = Order.Status.FAILED
         order.save()
         # After payment failure
-        send_email(
+        send_email.delay(
             subject=f"Order #{order.id} Payment Failed",
             message=f"Hi {order.user.username}, your payment failed. Please try again.",
             recipient=[order.user.email]

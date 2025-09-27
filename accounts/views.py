@@ -14,7 +14,7 @@ class RegisterView(generics.CreateAPIView):
     
     def perform_create(self, serializer):
         user = serializer.save()  # this is the new User instance
-        send_email(
+        send_email.delay(
             subject="Welcome to Project Nexus!",
             message=f"Hi {user.username}, thanks for registering.",
             recipient=[user.email],
