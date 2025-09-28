@@ -232,9 +232,9 @@ http://localhost:8000/swagger/
 
 ## 🎯 Hosted Links & Demo
 
-* **Swagger Docs:** [http://yourdomain.com/api/docs/](http://yourdomain.com/api/docs/)
-* **Hosted Backend:** [http://yourdomain.com/](http://yourdomain.com/)
-* **Demo Video:** <link to demo video>
+* **Swagger Docs:** [https://ecommerce-jciz.onrender.com/swagger/](https://ecommerce-jciz.onrender.com/swagger/)
+* **Hosted Backend:** [https://ecommerce-jciz.onrender.com/v1/](https://ecommerce-jciz.onrender.com/swagger/)
+* **Demo Video:** [link to demo video](https://drive.google.com/file/d/13JdBU1z2axrbaW-9o87WRR_JOLxtooT3/view?usp=drive_link)
 
 ---
 
